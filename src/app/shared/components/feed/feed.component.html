@@ -1,0 +1,44 @@
+@if (isLoading()) {
+   <loading></loading>
+}
+ @if (error(); as errorMessage) {
+    <error-message [message]="errorMessage"></error-message>
+}
+
+ @if (feed(); as feedData) {
+    @for(article of feedData.articles; track article.id) {
+        <div class="article-preview">
+            <div class="article-meta">
+                <a [routerLink]="['/profiles', article.author.username]">
+                    <profile-image [profileImage]="article.author.image"></profile-image>
+                </a>
+                <div class="info">
+                    <a [routerLink]="['/profiles', article.author.username]">
+                        {{ article.author.username }}
+                    </a>
+                    <span class="date">{{ formatDate(article.createdAt) }}</span>
+                </div>
+                <div class="pull-xs-right">
+                    <add-to-favorites
+                        [isFavorited]="article.favorited"
+                        [articleSlug]="article.slug"
+                        [favoritesCount]="article.favoritesCount"
+                    ></add-to-favorites>
+                </div>
+            </div>
+            <a [routerLink]="['/articles', article.slug]" class="preview-link">
+                <h1>{{ article.title }}</h1>
+                <p>{{ article.description }}</p>
+                <span>Read more...</span>
+                <tag-list [tags]="article.tagList"></tag-list>
+            </a>
+        </div>
+    }
+    <pagination 
+        [total]="feedData.articlesCount"
+        [limit]="limit"
+        [url]="baseUrl"
+        [currentPage]="currentPage()"
+    >
+    </pagination>
+}

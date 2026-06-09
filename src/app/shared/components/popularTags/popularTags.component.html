@@ -1,0 +1,19 @@
+
+@if (isLoading()) {
+    <loading></loading>
+}
+@if (error(); as errorMessage) {
+    <error-message [message]="errorMessage"></error-message>
+}
+@if (popularTags(); as popularTagItems) {
+    <div class="sidebar">
+        <p>Popular tags</p>
+        <div class="tag-list">
+            @for(popularTag of popularTagItems; track popularTag) {
+                <a [routerLink]="['/tags', popularTag ]" class="tag-default tag-pill">
+                    {{ popularTag }}
+                </a>
+            }
+        </div>
+    </div>
+}

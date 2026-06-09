@@ -1,0 +1,11 @@
+/* You can add global styles to this file, and also import other style files */
+@import "tailwindcss";
+
+@theme {
+  --color-gray-03: #83888f;
+  --color-blue-ribbon: #3679ff;
+  --color-blue-ribbon-faded: #3679ff;
+  --color-misty-black: #252733;
+  --color-gray-01: #ececec;
+  --color-gray-02: #e6ebed;
+}

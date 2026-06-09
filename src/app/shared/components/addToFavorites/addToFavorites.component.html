@@ -1,0 +1,9 @@
+<button (click)="handleLike()"
+    [class.btn]="true"
+    [class.btn-sm]="true"
+    [class.btn-primary]="localIsFavorited()"
+    [class.btn-outline-primary]="!localIsFavorited()"
+>
+    <i class="ion-heart"></i>
+    <span>&nbsp; {{ localFavoritesCount() }}</span>
+</button>

@@ -1,0 +1,47 @@
+<div class="article-page">
+    <div class="banner">
+        @if(article(); as articleData) {
+            <div class="container">
+                <h1>{{articleData.title}}</h1>
+                <div class="article-meta">
+                    <a [routerLink]="['/profiles', articleData.author.username]">
+                        <profile-image [profileImage]="articleData.author.image"></profile-image>
+                    </a>
+                    <div class="info">
+                        <a [routerLink]="['/profiles', articleData.author.username]">
+                            {{articleData.author.username}}
+                        </a>
+                        <span class="data">{{ formatDate(articleData.createdAt) }}</span>
+                    </div>
+                    @if(isAuthor()) {
+                        <a [routerLink]="['/articles', articleData.slug, 'edit']" class="btn btn-outline-secondary btn-sm">
+                            <i class="ion-edit"></i>
+                            Edit Article
+                        </a>
+                        <button class="btn btn-outline-danger btn-sm" (click)="deleteArticle()">
+                            Delete Article
+                        </button>
+                    }
+                </div>
+            </div>
+        }
+    </div>
+    <div class="container page">
+        @if (isLoading()) {
+            <loading></loading>
+        }
+        @if (error(); as errorMessage) {
+            <error-message [message]="errorMessage"></error-message>
+        }
+        @if(article(); as articleData) {
+            <div class="row article-content">
+                <div class="col-xs-12">
+                    <div>
+                        <p>{{articleData.body}}</p>
+                    </div>
+                    <tag-list [tags]="articleData.tagList"></tag-list>
+                </div>
+            </div>
+        }
+    </div>
+</div>
